@@ -11,3 +11,6 @@ country state and city changer form with Vue + Vuex
 Module <b>@/api/index.js</b> generate random errors for show errors testing.
 
 Please, update <b>@/api/index.js</b> code for correct API requests with your backend.
+
+This is content for your backend database: https://github.com/hiiamrohit/Countries-States-Cities-database
+It consist of `countries`, `states` and `cities` SQL/JSON tables
