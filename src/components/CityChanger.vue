@@ -2,6 +2,7 @@
     <div class="CityChanger">
         <select :disabled="!coutrySelectEnable">
             <option>Select Country...</option>
+            <option v-for="country in countryList" :key="country.id">[{{country.sortname}}] {{country.name}}</option>
         </select>
         <select :disabled="!stateSelectEnable">
             <option>Select State...</option>
@@ -19,14 +20,13 @@ export default {
     computed: mapGetters({
         coutrySelectEnable: 'coutrySelectEnable',
         stateSelectEnable: 'stateSelectEnable',
-        citySelectEnable: 'citySelectEnable'
+        citySelectEnable: 'citySelectEnable',
+
+        countryList: 'countryList'
     }),
     methods: mapActions([]),
     created() {
-        // TODO: load country list
-        setTimeout(() => {
-            this.$store.dispatch('setCoutrySelectEnable', true)
-        }, 2000) // 2000 - mocking api request
+        this.$store.dispatch('getCoutryList')
     }
 }
 </script>

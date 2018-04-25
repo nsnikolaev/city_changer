@@ -1,13 +1,19 @@
+import Api from '@/api/index'
+
 const state = {
     coutrySelectEnable: false, // Coutry select disabling on init
     stateSelectEnable: false, // State select disabling on init
-    citySelectEnable: false // City select disabling on init
+    citySelectEnable: false, // City select disabling on init
+
+    countryList: []
 }
 
 const getters = {
     coutrySelectEnable: state => state.coutrySelectEnable,
     stateSelectEnable: state => state.stateSelectEnable,
-    citySelectEnable: state => state.citySelectEnable
+    citySelectEnable: state => state.citySelectEnable,
+
+    countryList: state => state.countryList
 }
 
 const actions = {
@@ -19,6 +25,15 @@ const actions = {
     },
     setCitySelectEnable({ commit }, status) {
         commit("setCitySelectEnable", status)
+    },
+
+    getCoutryList({ commit }) {
+        Api.request('getCoutries', response => {
+            if (response.status === true) {
+                commit("setCountryList", response.data)
+                commit("setCoutrySelectEnable", true)
+            }
+        }, null)
     }
 }
 
@@ -31,6 +46,10 @@ const mutations = {
     },
     setCitySelectEnable(state, status) {
         state.citySelectEnable = !!status
+    },
+
+    setCountryList(state, countryList) {
+        state.countryList = countryList
     }
 }
 

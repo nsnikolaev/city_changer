@@ -1,9 +1,8 @@
-const generatePendingErrors = true
-
 //
 // data
 //
-// ...
+
+import countries from '@/api/big_data/countries'
 
 //
 // commands
@@ -15,14 +14,14 @@ export default { // mocking client-server processing
     request(command, callback, requestData) {
         let data = null
         switch (command) {
-            case 'index':
+            case 'getCoutries':
+                data = countries
                 break
         }
-        let status = generatePendingErrors ? (Math.random() >= 0.3) : true // random status mocking error
         let response = {
-            status: status,
+            status: true,
             data: data
         }
-        setTimeout(() => callback(response), 1000) // 1000 - response delay mocking
+        setTimeout(() => callback(response), 1800) // 1800 - response delay mocking
     }
 }
