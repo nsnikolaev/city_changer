@@ -8,9 +8,8 @@ country state and city changer form with Vue + Vuex
 4. visit URL "http://localhost:8080"
 
 ### Mocking backend
-Module <b>@/api/index.js</b> generate random errors for show errors testing.
-
+Module <b>@/api/index.js</b> generate random errors for show errors testing.<br>
 Please, update <b>@/api/index.js</b> code for correct API requests with your backend.
 
-This is content for your backend database: https://github.com/hiiamrohit/Countries-States-Cities-database
+This is content for your backend database: https://github.com/hiiamrohit/Countries-States-Cities-database<br>
 It consist of `countries`, `states` and `cities` SQL/JSON tables
