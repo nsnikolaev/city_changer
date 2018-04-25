@@ -6,30 +6,46 @@
                 {{country.name}}
             </option>
         </select>
-        <select :disabled="!stateSelectEnable">
-            <option>Select State...</option>
+        <select :disabled="!stateSelectEnable" v-model="stateId">
+            <option value="0">Select State...</option>
             <option v-for="state in stateList" :key="state.id" :value="state.id">
                 {{state.name}}
             </option>
         </select>
-        <select :disabled="!citySelectEnable">
-            <option>Select City...</option>
+        <select :disabled="!citySelectEnable" v-model="cityId">
+            <option value="0">Select City...</option>
+            <option v-for="city in cityList" :key="city.id" :value="city.name">
+                {{city.name}}
+            </option>
         </select>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     data() {
         return {
-            countryId: 0
+            countryId: 0,
+            stateId: 0,
+            cityId: 0
         }
     },
     watch: {
         countryId: function(value) {
+            this.stateId = 0;
+            this.cityId = 0;
             this.$store.dispatch('getStateListByCountryId', value)
+        },
+        stateId: function(value) {
+            this.cityId = 0;
+            this.$store.dispatch('getCityListByStateId', value)
+        },
+        cityId: function(value) {
+            if (value != 0) {
+                alert(value) // ... TODO: do anything with city id here
+            }
         }
     },
     computed: mapGetters({
@@ -41,10 +57,10 @@ export default {
         stateSelectEnable: 'stateSelectEnable',
         stateList: 'stateList',
 
-        citySelectEnable: 'citySelectEnable'
+        citySelectEnable: 'citySelectEnable',
+        cityList: 'cityList'
 
     }),
-    methods: mapActions([]),
     created() {
         this.$store.dispatch('getCoutryList')
     }

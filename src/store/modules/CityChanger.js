@@ -9,7 +9,8 @@ const state = {
     stateSelectEnable: false,
     stateList: [],
     
-    citySelectEnable: false
+    citySelectEnable: false,
+    cityList: []
     
 }
 
@@ -22,7 +23,8 @@ const getters = {
     stateSelectEnable: state => state.stateSelectEnable,
     stateList: state => state.stateList,
 
-    citySelectEnable: state => state.citySelectEnable
+    citySelectEnable: state => state.citySelectEnable,
+    cityList: state => state.cityList,
 
 }
 
@@ -46,6 +48,9 @@ const actions = {
     getStateListByCountryId({ commit }, countryId) {
         commit("cleanStateList")
         commit("setStateSelectEnable", false)
+        commit("cleanCityList")
+        commit("setCitySelectEnable", false)
+        if (countryId == 0) return
         Api.request('getStateListByCountryId', response => {
             if (response.status === true) {
                 commit("setStateList", response.data)
@@ -56,7 +61,18 @@ const actions = {
 
     setCitySelectEnable({ commit }, status) {
         commit("setCitySelectEnable", status)
-    }
+    },
+    getCityListByStateId({ commit }, stateId) {
+        commit("cleanCityList")
+        commit("setCitySelectEnable", false)
+        if (stateId == 0) return
+        Api.request('getCityListByStateId', response => {
+            if (response.status === true) {
+                commit("setCityList", response.data)
+                commit("setCitySelectEnable", true)
+            }
+        }, stateId)
+    },
     
 }
 
@@ -81,7 +97,13 @@ const mutations = {
 
     setCitySelectEnable(state, status) {
         state.citySelectEnable = !!status
-    }
+    },
+    setCityList(state, cityList) {
+        state.cityList = cityList
+    },
+    cleanCityList(state) {
+        state.cityList = []
+    },
 
 }
 
